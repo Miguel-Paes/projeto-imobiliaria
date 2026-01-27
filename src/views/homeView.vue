@@ -93,8 +93,7 @@ const show = ref(false);
             <v-card-subtitle> 250m² de área do imóvel </v-card-subtitle>
           </div>
           <v-spacer />
-          <div class="d-flex mt-2 mx-4 justify-space-between align-center mb-8">
-            <v-btn color="yellow-darken-3">Detalhes</v-btn>
+          <div class="d-flex mt-2 mx-4 align-center mb-8">
             <h1 class="">R$ 850.000,00</h1>
           </div>
         </v-card>
