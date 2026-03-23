@@ -3,6 +3,7 @@ import { ref, onMounted } from "vue";
 import { useAnnouncementsStore } from "@/stores/AnnouncementsStore";
 import { useTagsStore } from "@/stores/TagsStore";
 import AnnouncementCard from "@/components/announcements/ AnnouncementCard.vue";
+import FilterComponent from "@/components/filterAndChips/FilterComponent.vue";
 
 const announcementsStore = useAnnouncementsStore();
 const tagsStore = useTagsStore();
@@ -17,7 +18,7 @@ function toggleCard(id) {
 
 onMounted(() => {
   announcementsStore.fetchAnnouncements();
-  tagsStore.fetchTags();
+  tagsStore.fetchTypes();
 });
 </script>
 
@@ -51,16 +52,12 @@ onMounted(() => {
           </v-row>
 
           <!-- Filter options go here -->
-          <v-row v-else class="ma-4 ga-4">
-            <v-chip
-              v-for="tags in tagsStore.items"
-              :key="tags.id"
-              class="text-center my-2"
-              variant="outlined"
-            >
-              {{ tags.name }}
-            </v-chip>
-          </v-row>
+          <FilterComponent 
+            v-else
+            v-for="type in typeStore.type"
+            :key="type.id"
+            :tag="type"
+          />
         </v-card-text>
       </v-card>
     </v-dialog>

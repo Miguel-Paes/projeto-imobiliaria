@@ -41,21 +41,49 @@
       }
     }
   ],
+  "types": [
+    {
+      "id": 1,
+      "name": "Tipo de Imóvel"
+    },
+    {
+      "id": 2,
+      "name": "Área do Imóvel"
+    },
+    {
+      "id": 3,
+      "name": "Localização"
+    }
+  ],
   "tags": [
     {
       "id": 1,
+      "typeId": 1,
       "name": "Casa"
     },
     {
       "id": 2,
+      "typeId": 1,
       "name": "Apartamento"
     },
     {
       "id": 3,
-      "name": "Centro"
+      "typeId": 2,
+      "name": "Até 100m²"
     },
     {
       "id": 4,
+      "typeId": 2,
+      "name": "Até 150m²"
+    },
+    {
+      "id": 5,
+      "typeId": 3,
+      "name": "Centro"
+    },
+    {
+      "id": 6,
+      "typeId": 3,
       "name": "Praia"
     }
   ]
