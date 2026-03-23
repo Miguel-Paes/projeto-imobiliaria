@@ -1,11 +1,15 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useAnnouncementsStore } from "@/stores/AnnouncementsStore";
+import { useTagsStore } from "@/stores/TagsStore";
 import AnnouncementCard from "@/components/announcements/ AnnouncementCard.vue";
 
 const announcementsStore = useAnnouncementsStore();
+const tagsStore = useTagsStore();
 
 const openCard = ref(null);
+
+const filterDialog = ref(false);
 
 function toggleCard(id) {
   openCard.value = openCard.value === id ? null : id;
@@ -13,12 +17,53 @@ function toggleCard(id) {
 
 onMounted(() => {
   announcementsStore.fetchAnnouncements();
+  tagsStore.fetchTags();
 });
 </script>
 
 <template>
   <div>
-    <h1 class="ma-4">Imóveis disponíveis</h1>
+    <!-- Top Bar-->
+    <v-row>
+      <v-col cols="6">
+        <h1 class="ma-4">Imóveis disponíveis</h1>
+      </v-col>
+      <v-col cols="6" class="d-flex justify-end align-center pr-10">
+        <v-btn
+          color="yellow-darken-3"
+          variant="flat"
+          text="Filtrar anúncios"
+          @click="filterDialog = !filterDialog"
+        />
+      </v-col>
+    </v-row>
+
+    <!-- Filter Dialog -->
+    <v-dialog v-model="filterDialog" width="700">
+      <v-card>
+        <v-card-title>Filtrar anúncios por...</v-card-title>
+        <v-card-text>
+          <!-- Loading -->
+          <v-row v-if="tagsStore.loading">
+            <v-col v-for="i in 6" :key="i" cols="12" sm="6" md="3">
+              <v-skeleton-loader type="card" />
+            </v-col>
+          </v-row>
+
+          <!-- Filter options go here -->
+          <v-row v-else class="ma-4 ga-4">
+            <v-chip
+              v-for="tags in tagsStore.items"
+              :key="tags.id"
+              class="text-center my-2"
+              variant="outlined"
+            >
+              {{ tags.name }}
+            </v-chip>
+          </v-row>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
 
     <!-- Loading -->
     <v-row v-if="announcementsStore.loading">

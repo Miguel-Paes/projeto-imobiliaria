@@ -10,3 +10,5 @@ import headerComponent from "./components/headerComponent.vue";
     </v-main>
   </v-app>
 </template>
+
+<!-- Para rodar: json-server --watch db.json --port 3000 -->
