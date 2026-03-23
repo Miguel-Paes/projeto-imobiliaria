@@ -54,9 +54,9 @@ onMounted(() => {
           <!-- Filter options go here -->
           <FilterComponent 
             v-else
-            v-for="type in typeStore.type"
+            v-for="type in tagsStore.types"
             :key="type.id"
-            :tag="type"
+            :type="type"
           />
         </v-card-text>
       </v-card>

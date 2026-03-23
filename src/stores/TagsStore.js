@@ -9,6 +9,21 @@ export const useTagsStore = defineStore("tags", {
   }),
 
   actions: {
+    async fetchTags() {
+      this.loading = true;
+      this.error = null;
+      try {
+        const res = await fetch("http://localhost:3001/tags");
+        if (!res.ok) throw new Error("Erro ao buscar tags");
+        this.tags = await res.json();
+      } catch (err) {
+        this.error = err.message;
+        console.error(err);
+      } finally {
+        this.loading = false;
+        console.log("Tags carregadas:", this.tags);
+      }
+    },
     async fetchTypes() {
       this.loading = true;
       this.error = null;
@@ -24,20 +39,5 @@ export const useTagsStore = defineStore("tags", {
         console.log("Tipos carregados:", this.types);
       }
     }
-  },
-    async fetchTags() {
-      this.loading = true;
-      this.error = null;
-      try {
-        const res = await fetch("http://localhost:3001/tags");
-        if (!res.ok) throw new Error("Erro ao buscar tags");
-        this.tags = await res.json();
-      } catch (err) {
-        this.error = err.message;
-        console.error(err);
-      } finally {
-        this.loading = false;
-        console.log("Tags carregadas:", this.tags);
-      }
-    }
+  }
 });
